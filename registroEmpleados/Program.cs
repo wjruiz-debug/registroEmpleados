@@ -30,7 +30,7 @@ int menu()
 {
     Console.ForegroundColor = ConsoleColor.Green;
     Console.Clear();
-    Console.Write("1.Agregar \n 2.Mostrar \n 3.Guardar. \n 4.Salir. \n Digite su opcion");
+    Console.Write("\n 1.Agregar \n 2.Mostrar \n 3.Guardar. \n 4.Salir. \n 5.Recuperar Datos \n Digite su opcion");
     Console.ForegroundColor = ConsoleColor.Blue;
     int op = int.Parse(Console.ReadLine()!);
     return op;
@@ -46,6 +46,22 @@ void guardarEmpleados(int pos)
 
     archivo.Close();
     Console.WriteLine("Registros guardados satisfactoriamente.");
+    Console.ReadKey();
+}
+
+//Hacer que la aplicacion, muestre los datos en el arreglo
+
+void recuperarDatos()
+{
+    Console.WriteLine("Recuperando datos: ");
+    StreamReader archivo = new StreamReader("C:\\Programacion\\empleados.csv");
+    string linea;
+    while ((linea = archivo.ReadLine()!) != null)
+    {
+        string[] datos = linea.Split(';');
+        Console.WriteLine($"Nombre: {datos[0]} \nApellidos: {datos[1]} \nCargo: {datos[2]} \nSalario: {datos[3]}");
+    }
+    archivo.Close();
     Console.ReadKey();
 }
 
@@ -69,6 +85,13 @@ void guardarEmpleados(int pos)
                 guardarEmpleados(i);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Archivo guardado.");
+                Console.ResetColor();
+                break;
+
+            case 5:
+                recuperarDatos();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Archivo recuperado.");
                 Console.ResetColor();
                 break;
             default:
